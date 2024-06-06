@@ -25,7 +25,34 @@ function App() {
     );
     setTableData(newTableData);
   }
+  function createTableHandler() {
+    const rows = [];
+    for (let i = 0; i < tableSize.rows; i++) {
+      const columns = [];
+      for (let j = 0; j < tableSize.columns; j++) {
+        columns.push(
+          <td key={j}>
+            <input
+              type="text"
+              value={tableData[i]?.[j] || ""}
+              onChange={(e) => handleInputChange(i, j, e.target.value)}
+            />
+          </td>
+        );
+      }
+      rows.push(<tr key={i}>{columns}</tr>);
+    }
+    return rows;
+  }
 
+  function handleInputChange(rowIndex, columnIndex, value) {
+    setTableData((prevData) => {
+      const newData = [...prevData];
+      if (!newData[rowIndex]) newData[rowIndex] = [];
+      newData[rowIndex][columnIndex] = value;
+      return newData;
+    });
+  }
   function handleReset() {
     setTableSize({ rows: 1, columns: 1 });
     setTableData([[""]]);
@@ -57,7 +84,7 @@ function App() {
               ))}
             </tr>
           </thead>
-          {/* <tbody>{createTableHandler()}</tbody> */}
+          <tbody>{createTableHandler()}</tbody>
         </table>
         <pre>{arrayToMarkdownTable(tableData)}</pre>
       </main>
