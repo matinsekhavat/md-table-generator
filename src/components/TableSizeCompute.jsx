@@ -5,7 +5,7 @@ function TableSizeCompute({ placeholder, onTableSize }) {
       <input
         type="text"
         placeholder={placeholder}
-        className="w-4/5 mx-auto block p-2 rounded-md ring ring-stone-200
+        className="w-4/5 md:w-full mx-auto block p-2 rounded-md ring ring-stone-200
          focus:outline-2 focus:outline-stone-300"
         name={placeholder}
         onChange={(e) => onTableSize(e)}
