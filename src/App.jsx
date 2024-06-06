@@ -3,17 +3,18 @@ import Header from "./components/Header";
 import TableSizeCompute from "./components/TableSizeCompute";
 import Button from "./components/Button";
 import { arrayToMarkdownTable, copyToClipboard } from "./utils";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   const [tableSize, setTableSize] = useState({
     rows: 1,
-    columns: 1,
+    columns: 3,
   });
   const [tableData, setTableData] = useState([[""]]); // initialize with one empty cell
   const preResultRef = useRef(null);
   function tableSizeHandler(e) {
     const { name, value } = e.target;
-    setTableSize((size) => ({ ...size, [name]: Number(value, 10) || 1 }));
+    setTableSize((size) => ({ ...size, [name]: Number(value) }));
 
     // Update tableData to match new size
     const newTableData = Array.from({
@@ -60,6 +61,7 @@ function App() {
 
   return (
     <>
+      <Toaster position="top-right" />
       <Header />
       <main className="container border-t-2 py-2">
         <div className="md:grid md:grid-cols-2 gap-3 ">
@@ -67,24 +69,25 @@ function App() {
             placeholder="rows"
             name="rows"
             onTableSize={tableSizeHandler}
+            tableSize={tableSize}
           />
           <TableSizeCompute
             placeholder="columns"
             name="columns"
             onTableSize={tableSizeHandler}
+            tableSize={tableSize}
           />
         </div>
         <div className="flex items-center justify-center gap-4">
           {/* <Button action="generate" /> */}
           <Button action="reset" onClick={handleReset} />
+          <Button
+            action="generate"
+            onClick={() => copyToClipboard(preResultRef?.current?.innerHTML)}
+          />
         </div>
-        <div>
-          <div className="flex justify-end">
-            <Button
-              action="generate"
-              onClick={() => copyToClipboard(preResultRef?.current?.innerHTML)}
-            />
-          </div>
+        <div className="overflow-x-auto mt-4">
+          <div className="flex justify-end"></div>
           <table>
             <thead>
               <tr>
@@ -95,8 +98,8 @@ function App() {
             </thead>
             <tbody>{createTableHandler()}</tbody>
           </table>
-          <pre ref={preResultRef}>{arrayToMarkdownTable(tableData)}</pre>
         </div>
+        <pre ref={preResultRef}>{arrayToMarkdownTable(tableData)}</pre>
       </main>
     </>
   );
