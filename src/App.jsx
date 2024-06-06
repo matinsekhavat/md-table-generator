@@ -14,7 +14,7 @@ function App() {
   return (
     <>
       <Header />
-      <main>
+      <main className="container bg-stone-100 border-t-2 py-2">
         <TableSizeCompute placeholder="rows" onTableSize={tableSizeHandler} />
         <TableSizeCompute
           placeholder="columns"
