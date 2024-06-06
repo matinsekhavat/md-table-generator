@@ -1,4 +1,4 @@
-const Button = ({ action }) => {
+const Button = ({ action, onClick }) => {
   const buttonStyles = {
     generate:
       "border border-green-600 text-green-500 px-4 py-2 rounded-md hover:text-gray-100 hover:bg-green-500 transition duration-200",
@@ -11,6 +11,7 @@ const Button = ({ action }) => {
       className={
         action === "generate" ? buttonStyles.generate : buttonStyles.reset
       }
+      onClick={onClick}
     >
       {action === "generate" ? "Generate Table" : "Reset Colors"}
     </button>
