@@ -10,7 +10,7 @@ function arrayToMarkdownTable(arr) {
       }
 
       if (i === 0) {
-        let separatorRow = row.map((item) => "---").join(" | ");
+        let separatorRow = row.map(() => "---").join(" | ");
         separatorRow = `\n| ${separatorRow} |`;
         return `\n| ${row.join(" | ")} |${separatorRow}`;
       } else {
