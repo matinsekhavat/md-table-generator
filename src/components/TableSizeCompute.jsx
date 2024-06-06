@@ -1,4 +1,4 @@
-function TableSizeCompute({ placeholder, onTableSize }) {
+function TableSizeCompute({ placeholder, onTableSize, tableSize }) {
   return (
     <div className="my-4">
       <p className="text-center my-2 font-bold">Number of {placeholder}</p>
@@ -9,6 +9,7 @@ function TableSizeCompute({ placeholder, onTableSize }) {
          focus:outline-2 focus:outline-stone-300"
         name={placeholder}
         onChange={(e) => onTableSize(e)}
+        value={tableSize[placeholder]}
       />
     </div>
   );
