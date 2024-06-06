@@ -1,3 +1,5 @@
+import toast from "react-hot-toast";
+
 function arrayToMarkdownTable(arr) {
   if (!arr || arr.length === 0) {
     return "";
@@ -25,7 +27,7 @@ function arrayToMarkdownTable(arr) {
 async function copyToClipboard(text) {
   try {
     await navigator.clipboard.writeText(text);
-    console.log("copied");
+    toast.success("copied to Clipboard");
   } catch (error) {
     throw new Error("sth wrong to save Table String into clipboard", error);
   }
