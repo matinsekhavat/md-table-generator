@@ -3,7 +3,7 @@ import Header from "./components/Header";
 import TableSizeCompute from "./components/TableSizeCompute";
 import Button from "./components/Button";
 import { arrayToMarkdownTable, copyToClipboard } from "./utils";
-import { Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 
 function App() {
   const [tableSize, setTableSize] = useState({
@@ -57,6 +57,7 @@ function App() {
   function handleReset() {
     setTableSize({ rows: 1, columns: 1 });
     setTableData([[""]]);
+    toast.success("reset table sizes");
   }
 
   return (
