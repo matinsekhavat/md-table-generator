@@ -13,7 +13,7 @@ const Button = ({ action, onClick }) => {
       }
       onClick={onClick}
     >
-      {action === "generate" ? "Generate Table" : "Reset Colors"}
+      {action === "generate" ? "copy md" : "Reset Colors"}
     </button>
   );
 };
