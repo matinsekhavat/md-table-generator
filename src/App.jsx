@@ -62,18 +62,20 @@ function App() {
     <>
       <Header />
       <main className="container border-t-2 py-2">
-        <TableSizeCompute
-          placeholder="rows"
-          name="rows"
-          onTableSize={tableSizeHandler}
-        />
-        <TableSizeCompute
-          placeholder="columns"
-          name="columns"
-          onTableSize={tableSizeHandler}
-        />
+        <div className="md:grid md:grid-cols-2 gap-3 ">
+          <TableSizeCompute
+            placeholder="rows"
+            name="rows"
+            onTableSize={tableSizeHandler}
+          />
+          <TableSizeCompute
+            placeholder="columns"
+            name="columns"
+            onTableSize={tableSizeHandler}
+          />
+        </div>
         <div className="flex items-center justify-center gap-4">
-          <Button action="generate" />
+          {/* <Button action="generate" /> */}
           <Button action="reset" onClick={handleReset} />
         </div>
         <table>
