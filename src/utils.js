@@ -22,4 +22,12 @@ function arrayToMarkdownTable(arr) {
   return result;
 }
 
-export default arrayToMarkdownTable;
+async function copyToClipboard(text) {
+  try {
+    await navigator.clipboard.writeText(text);
+    console.log("copied");
+  } catch (error) {
+    throw new Error("sth wrong to save Table String into clipboard", error);
+  }
+}
+export { arrayToMarkdownTable, copyToClipboard };
