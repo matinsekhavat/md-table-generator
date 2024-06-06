@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Header from "./components/Header";
 import TableSizeCompute from "./components/TableSizeCompute";
 import Button from "./components/Button";
-import arrayToMarkdownTable from "./utils";
+import { arrayToMarkdownTable, copyToClipboard } from "./utils";
 
 function App() {
   const [tableSize, setTableSize] = useState({
@@ -10,7 +10,7 @@ function App() {
     columns: 1,
   });
   const [tableData, setTableData] = useState([[""]]); // initialize with one empty cell
-
+  const preResultRef = useRef(null);
   function tableSizeHandler(e) {
     const { name, value } = e.target;
     setTableSize((size) => ({ ...size, [name]: Number(value, 10) || 1 }));
@@ -78,17 +78,25 @@ function App() {
           {/* <Button action="generate" /> */}
           <Button action="reset" onClick={handleReset} />
         </div>
-        <table>
-          <thead>
-            <tr>
-              {Array.from({ length: tableSize.columns }).map((_, index) => (
-                <th key={index}>Column {index + 1}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>{createTableHandler()}</tbody>
-        </table>
-        <pre>{arrayToMarkdownTable(tableData)}</pre>
+        <div>
+          <div className="flex justify-end">
+            <Button
+              action="generate"
+              onClick={() => copyToClipboard(preResultRef?.current?.innerHTML)}
+            />
+          </div>
+          <table>
+            <thead>
+              <tr>
+                {Array.from({ length: tableSize.columns }).map((_, index) => (
+                  <th key={index}>Column {index + 1}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>{createTableHandler()}</tbody>
+          </table>
+          <pre ref={preResultRef}>{arrayToMarkdownTable(tableData)}</pre>
+        </div>
       </main>
     </>
   );
